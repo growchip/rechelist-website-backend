@@ -1,0 +1,31 @@
+<?php
+
+namespace Botble\Blog\Http\Resources;
+
+use Botble\Blog\Models\Post;
+use Botble\Media\Facades\RvMedia;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+/**
+ * @mixin Post
+ */
+class PostResource extends JsonResource
+{
+    public function toArray($request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'author_name' => $this->author->name ?? null,
+            'description' => $this->description,
+            'content' => $this->content,
+            'image' => $this->image ? basename($this->image) : null,
+            'banner_image' => $this->banner_image ? basename($this->banner_image) : null,
+            'categories' => CategoryResource::collection($this->categories),
+            'tags' => TagResource::collection($this->tags),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}

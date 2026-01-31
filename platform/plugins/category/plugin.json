@@ -1,0 +1,11 @@
+{
+    "id": "rechelist/category",
+    "name": "Category",
+    "namespace": "Botble\\Category\\",
+    "provider": "Botble\\Category\\Providers\\CategoryServiceProvider",
+    "author": "",
+    "url": "",
+    "version": "1.0.0",
+    "description": "",
+    "minimum_core_version": "7.3.5"
+}

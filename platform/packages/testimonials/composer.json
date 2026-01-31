@@ -1,0 +1,19 @@
+{
+    "name": "botble/testimonials",
+    "description": "Testimonials package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Botble\\Testimonials\\": "src"
+        }
+    },
+    "require": {
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Botble\\Testimonials\\Providers\\TestimonialsServiceProvider"
+            ]
+        }
+    }
+}

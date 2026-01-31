@@ -1,0 +1,11 @@
+{
+    "id": "rechelist/product",
+    "name": "Product",
+    "namespace": "Botble\\Product\\",
+    "provider": "Botble\\Product\\Providers\\ProductServiceProvider",
+    "author": "",
+    "url": "",
+    "version": "1.0.0",
+    "description": "",
+    "minimum_core_version": "7.3.5"
+}
