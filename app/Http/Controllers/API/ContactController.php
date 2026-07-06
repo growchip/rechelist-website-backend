@@ -49,11 +49,23 @@ class ContactController extends Controller
             'content' => $request->message ?? '',
         ]);
 
+        try {
         Mail::raw(
-        "Name: {$request->name}\nEmail: {$request->email}\nPhone: {$request->phone}\nCity: {$request->city}\nMessage: {$request->message}",
-        function ($message) {
-            $message->to('growchip.ai@gmail.com')
-                    ->subject('New SEO Query From Website');
-        });
+            "Name: {$request->name}\nEmail: {$request->email}\nPhone: {$request->phone}\nCity: {$request->city}\nMessage: {$request->message}",
+            function ($message) {
+                $message->to('growchip.ai@gmail.com')
+                        ->subject('New SEO Query From Website');
+            }
+        );
+
+        \Log::info('Mail sent successfully');
+        } catch (\Exception $e) {
+        \Log::error('Mail failed: ' . $e->getMessage());
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Thank you for contacting us. We will get back to you soon.',
+        ]);
     }
 }
