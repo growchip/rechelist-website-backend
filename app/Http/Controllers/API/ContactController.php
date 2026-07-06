@@ -7,6 +7,7 @@ use Botble\Contact\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 
 class ContactController extends Controller
 {
@@ -62,6 +63,34 @@ class ContactController extends Controller
         } catch (\Exception $e) {
         \Log::error('Mail failed: ' . $e->getMessage());
         }
+
+        // Push Lead to Growchip CRM
+        try {
+        $response = Http::post('http://apis.crm.growchip.in/webhook/wordpress', [
+            'company_id'   => 'f239a572-0898-488a-a149-496cf53a6701',
+            'source_id'    => '503b618f-df68-449e-9b5d-1b8a2a4f02f7',
+            'first_name'   => $request->name,
+            'email'        => $request->email,
+            'phone'        => $request->phone,
+            'city'         => $request->city,
+            'requirements' => $request->message,
+            'ctype'        => 'Lead',
+        ]);
+
+        if ($response->successful()) {
+            \Log::info('CRM webhook sent successfully', [
+                'response' => $response->body(),
+            ]);
+        } else {
+            \Log::error('CRM webhook failed', [
+                'status' => $response->status(),
+                'body'   => $response->body(),
+            ]);
+        }
+
+    } catch (\Exception $e) {
+        \Log::error('CRM webhook exception: ' . $e->getMessage());
+    }
 
         return response()->json([
             'success' => true,
