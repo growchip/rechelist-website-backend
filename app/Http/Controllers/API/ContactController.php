@@ -29,14 +29,34 @@ class ContactController extends Controller
         }
 
         // Contact::create($request->only('name','email','phone','city',message));
-        Mail::raw("New SEO lead from website:\n\n" . json_encode($request->all(), JSON_PRETTY_PRINT), function ($message) {
-            $message->to('growchip.ai@gmail.com')
-                ->subject('New SEO Lead from Website');
-        });
+        // Mail::raw("New SEO lead from website:\n\n" . json_encode($request->all(), JSON_PRETTY_PRINT), function ($message) {
+        //     $message->to('growchip.ai@gmail.com')
+        //         ->subject('New SEO Lead from Website');
+        // });
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Thank you for contacting us. We will get back to you soon.',
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Thank you for contacting us. We will get back to you soon.',
+        // ]);
+
+        Contact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->city,
+            'subject' => 'Contact Form',
+            'content' => $request->message ?? '',
         ]);
+
+        Mail::send('emails.contact-form', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'city' => $request->city,
+            'formMessage' => $request->message,
+        ], function ($message) {
+            $message->to('rechelist@gmail.com')
+                 ->subject('New Contact Form Submission');
+         });
     }
 }
