@@ -29,9 +29,9 @@ class ContactController extends Controller
         }
 
         // Contact::create($request->only('name','email','phone','city',message));
-        Mail::raw("New contact form submission:\n\n" . json_encode($request->all(), JSON_PRETTY_PRINT), function ($message) {
-            $message->to('chaturbhuj.wh@gmail.com')
-                ->subject('New Contact Form Submission');
+        Mail::raw("New SEO lead from website:\n\n" . json_encode($request->all(), JSON_PRETTY_PRINT), function ($message) {
+            $message->to('growchip.ai@gmail.com')
+                ->subject('New SEO Lead from Website');
         });
 
         return response()->json([
