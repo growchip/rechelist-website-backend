@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Botble\Contact\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -55,7 +56,7 @@ class ContactController extends Controller
             'city' => $request->city,
             'formMessage' => $request->message,
         ], function ($message) {
-            $message->to('rechelist@gmail.com')
+            $message->to('growchip.ai@gmail.com')
                  ->subject('New Contact Form Submission');
          });
     }
