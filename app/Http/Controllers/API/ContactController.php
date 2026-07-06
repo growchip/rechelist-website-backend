@@ -54,7 +54,7 @@ class ContactController extends Controller
         Mail::raw(
             "Name: {$request->name}\nEmail: {$request->email}\nPhone: {$request->phone}\nCity: {$request->city}\nMessage: {$request->message}",
             function ($message) {
-                $message->to('growchip.ai@gmail.com')
+                $message->to('rechelist@gmail.com')
                         ->subject('New SEO Query From Website');
             }
         );
