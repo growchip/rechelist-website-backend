@@ -49,15 +49,11 @@ class ContactController extends Controller
             'content' => $request->message ?? '',
         ]);
 
-        Mail::send('emails.contact-form', [
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'city' => $request->city,
-            'formMessage' => $request->message,
-        ], function ($message) {
+        Mail::raw(
+        "Name: {$request->name}\nEmail: {$request->email}\nPhone: {$request->phone}\nCity: {$request->city}\nMessage: {$request->message}",
+        function ($message) {
             $message->to('growchip.ai@gmail.com')
-                 ->subject('New Contact Form Submission');
-         });
+                    ->subject('New SEO Query From Website');
+        });
     }
 }
