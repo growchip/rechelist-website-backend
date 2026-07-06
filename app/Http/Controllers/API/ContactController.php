@@ -66,7 +66,7 @@ class ContactController extends Controller
 
         // Push Lead to Growchip CRM
         try {
-        $response = Http::post('http://apis.crm.growchip.in/webhook/wordpress', [
+        $response = Http::post('https://apis.crm.growchip.in/webhook/wordpress', [
             'company_id'   => 'f239a572-0898-488a-a149-496cf53a6701',
             'source_id'    => '503b618f-df68-449e-9b5d-1b8a2a4f02f7',
             'first_name'   => $request->name,
